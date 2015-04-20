@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Warning! This file contains important customizations. Using Visual Studio to edit project's properties might break things. -->
   <!-- Props file -->
   <PropertyGroup>
     <LocalPropsFile>$(MSBuildProjectDirectory)\..\..\..\Local.props</LocalPropsFile>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <TargetFrameworkVersion />
   </PropertyGroup>
   <Import Project="$(LocalPropsFile)" />
   <!-- MSBuild Community Tasks -->
@@ -134,8 +137,8 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
-  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
-    <VisualStudioVersion>11.0</VisualStudioVersion>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <!-- Mono compatibility workarounds -->
   <PropertyGroup Condition=" '$(PropUsingMono)' == 'true'">
