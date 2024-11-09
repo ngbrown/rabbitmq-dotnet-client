@@ -56,21 +56,16 @@ namespace RabbitMQ.Client
             new KeyValuePair<string, object?>(ProtocolVersion, "0.9.1")
         };
 
-        internal static Activity? Send(string routingKey, string exchange, int bodySize,
-            ActivityContext linkedContext = default)
+        internal static Activity? Send(string routingKey, string exchange, int bodySize)
         {
             if (!s_publisherSource.HasListeners())
             {
                 return null;
             }
 
-            Activity? activity = linkedContext == default
-                ? s_publisherSource.StartRabbitMQActivity(
-                    UseRoutingKeyAsOperationName ? $"{routingKey} {MessagingOperationTypeSend}" : MessagingOperationTypeSend,
-                    ActivityKind.Producer)
-                : s_publisherSource.StartLinkedRabbitMQActivity(
-                    UseRoutingKeyAsOperationName ? $"{routingKey} {MessagingOperationTypeSend}" : MessagingOperationTypeSend,
-                    ActivityKind.Producer, linkedContext);
+            Activity? activity = s_publisherSource.StartRabbitMQActivity(
+                UseRoutingKeyAsOperationName ? $"{routingKey} {MessagingOperationTypeSend}" : MessagingOperationTypeSend,
+                ActivityKind.Producer);
             if (activity != null && activity.IsAllDataRequested)
             {
                 PopulateMessagingTags(MessagingOperationTypeSend, routingKey, exchange, 0, bodySize, activity);
